@@ -37,9 +37,18 @@ function makePoints() {
 function draw() {
   // background(0);
   translate(width/2, height/2);
-  let d = floor(map(abs(dist(mouseX, mouseY, width/2, mouseY)), 0, width/2, width/2, 0))-50;
-  if (d > 0 && d <= radius) {
+  // let d = floor(map(abs(dist(mouseX, mouseY, radius, mouseY)), 0, width/2, width/2, -width/2));
+  let d;
+  if (mouseX <= width/2) {
+    d = floor(mouseX-width/2 + radius);
+  } else {
+    d = floor(radius-mouseX+width/2);
+  } 
+  
+  if (d > 0) {
     n = ceil(d);
+  } else {
+    n = 2;
   }
   inc = -map(mouseY-height/2, -height/2, height/2, -1, 1);
   if (x >= 2) {
@@ -68,6 +77,7 @@ function draw() {
   fill(255);
   textSize(20);
   textFont('Courier New');
+  text(`${mouseX-width/2}, ${mouseY-height/2}`, 0, -height/2+30);
   text(`n: ${n}`, -width/2+20, -height/2+30);
   text(`x: ${x.toFixed(3)}`, -width/2+20, -height/2+60);
   text(`delta: ${inc.toFixed(3)}`, -width/2+20, -height/2+90);
